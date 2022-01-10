@@ -203,13 +203,13 @@ func (l *listener) readMsgEventLoop(lctx context.Context) {
 // Shutdown stop accepting new connections and graceful stop the existing connections
 func (l *listener) Shutdown() {
 	// todo: change to StopAccept
-	l.Stop()
+	l.StopAccept()
 
 	l.cb.OnShutdown()
 }
 
-// Stop listen and graceful stop existing connections
-func (l *listener) Stop() error {
+// Stop accepting new connections
+func (l *listener) StopAccept() error {
 	if !l.bindToPort {
 		return nil
 	}
