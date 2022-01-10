@@ -200,7 +200,11 @@ func (l *listener) readMsgEventLoop(lctx context.Context) {
 	})
 }
 
-func (l *listener) drainConnections() {
+// GracefulStop stop accepting new connections and graceful stop the existing connections
+func (l *listener) GracefulStop() {
+	// todo: change to StopAccept
+	l.Stop()
+
 	l.cb.OnGracefulClose()
 }
 
@@ -219,7 +223,6 @@ func (l *listener) Stop() error {
 	case "tcp":
 		err = l.rawl.(*net.TCPListener).SetDeadline(time.Now())
 	}
-	l.drainConnections()
 	return err
 }
 
