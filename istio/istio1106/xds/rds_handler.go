@@ -25,6 +25,27 @@ import (
 )
 
 func (ads *AdsStreamClient) handleRds(resp *envoy_service_discovery_v3.DiscoveryResponse) error {
+	//GOD:
+	//	for {
+	//
+	//		select {
+	//		default:
+	//			if Count == 2 || Count == 6 {
+	//				break GOD
+	//			}
+	//
+	//		}
+	//	}
+	//	Count++
+	//go func() {
+	//	fmt.Println(time.Now(), "\n =========\n", resp)
+	//}()
+	//var r = &envoy_service_discovery_v3.DiscoveryResponse{
+	//	VersionInfo: "431",
+	//	Resources:   []*any.Any{
+	//		&any.Any{TypeUrl: EnvoyCluster,Value: },
+	//	},
+	//}
 	routes := HandleRouteResponse(resp)
 	if log.DefaultLogger.GetLogLevel() >= log.INFO {
 		log.DefaultLogger.Infof("get %d routes from RDS", len(routes))

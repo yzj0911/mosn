@@ -25,6 +25,20 @@ import (
 )
 
 func (ads *AdsStreamClient) handleCds(resp *envoy_service_discovery_v3.DiscoveryResponse) error {
+	//GOD:
+	//	for {
+	//		select {
+	//		default:
+	//			if Count == 1 || Count == 5 {
+	//				break GOD
+	//			}
+	//		}
+	//	}
+	//	Count++
+	////time.Sleep(5 * time.Second)
+	//go func() {
+	//	fmt.Println(time.Now(), "\n =========\n", resp)
+	//}()
 	clusters := HandleClusterResponse(resp)
 	if log.DefaultLogger.GetLogLevel() >= log.INFO {
 		log.DefaultLogger.Infof("get %d clusters from CDS", len(clusters))

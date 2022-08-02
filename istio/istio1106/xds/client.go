@@ -3,6 +3,7 @@ package xds
 import (
 	"context"
 	"errors"
+	"fmt"
 	"math"
 	"path/filepath"
 	"strings"
@@ -137,14 +138,40 @@ const (
 	EnvoyRoute    = resource.RouteType
 )
 
+var Count int
+
 func (ads *AdsStreamClient) HandleResponse(resp interface{}) {
+
 	dresp, ok := resp.(*envoy_service_discovery_v3.DiscoveryResponse)
 	if !ok {
 		log.DefaultLogger.Errorf("invalid response type")
 		return
 	}
+
+	fmt.Println(dresp)
+	//if dresp.VersionInfo == "412" {
+	//	if count == 0 {
+	//		s := `{"version_info":"414","resources":[{"type_url":"type.googleapis.com/envoy.config.listener.v3.Listener","value":"CgpsaXN0ZW5lcl8wEg4KDBIHMC4wLjAuMBiQThrsARrpAQotZW52b3kuZmlsdGVycy5uZXR3b3JrLmh0dHBfY29ubmVjdGlvbl9tYW5hZ2VyIrcBCmV0eXBlLmdvb2dsZWFwaXMuY29tL2Vudm95LmV4dGVuc2lvbnMuZmlsdGVycy5uZXR3b3JrLmh0dHBfY29ubmVjdGlvbl9tYW5hZ2VyLnYzLkh0dHBDb25uZWN0aW9uTWFuYWdlchJOEgRodHRwKhsKGWVudm95LmZpbHRlcnMuaHR0cC5yb3V0ZXIaKQobMAISFwgCIg8KDQoLeGRzX2NsdXN0ZXI4AUACEgpsaXN0ZW5lcl8w"}],"type_url":"type.googleapis.com/envoy.config.listener.v3.Listener","nonce":"3"}`
+	//		_ = json.Unmarshal([]byte(s), dresp)
+	//	}
+	//	if count == 1 {
+	//		s := `{"version_info":"414","resources":[{"type_url":"type.googleapis.com/envoy.config.route.v3.RouteConfiguration","value":"CgpsaXN0ZW5lcl8wEiEKDWxvY2FsX3NlcnZpY2USASoaDQoDCgEvEgYKBGVjaG8="}],"type_url":"type.googleapis.com/envoy.config.route.v3.RouteConfiguration","nonce":"4"}`
+	//		_ = json.Unmarshal([]byte(s), dresp)
+	//	}
+	//	if count == 2 {
+	//		s := `{"version_info":"414","resources":[{"type_url":"type.googleapis.com/envoy.config.endpoint.v3.ClusterLoadAssignment","value":"CgRlY2hvEhcSFQoTChEKDxIJMTI3LjAuMC4xGKCNAQ=="}],"type_url":"type.googleapis.com/envoy.config.endpoint.v3.ClusterLoadAssignment","nonce":"2"}`
+	//		_ = json.Unmarshal([]byte(s), dresp)
+	//	}
+	//	if count == 3 {
+	//		s := `{"version_info":"414","resources":[{"type_url":"type.googleapis.com/envoy.config.cluster.v3.Cluster","value":"CgRlY2hvGh0KGzACEhcIAiIPCg0KC3hkc19jbHVzdGVyOAFAAiICCAWIAQEQAw=="}],"type_url":"type.googleapis.com/envoy.config.cluster.v3.Cluster","nonce":"1"}`
+	//		_ = json.Unmarshal([]byte(s), dresp)
+	//	}
+	//	count++
+	//}
+	//a, _ := json.Marshal(dresp)
+	//fmt.Println(string(a))
 	/*
-	 * If xDS resource too big, Istio may be have write timeout error when use sync, such as:
+	 * If xDS resource too big, Istio maybe have written timeout error when use sync, such as:
 	 *              2020-12-01T09:17:29.354132Z     info    ads     Timeout writing sidecar~10.49.18.38~no-project-aabb-gz01a-blue-67cb764fcb-8dq4t.dmall-inner~dmall-inner.svc.cluster.local-39
 	 * So, will use async
 	 */
