@@ -13,4 +13,4 @@ spec:
     - name: echo
       endpoints:
         - address: 127.0.0.1
-          port: 18090
+          port: 18070

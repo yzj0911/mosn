@@ -25,21 +25,6 @@ import (
 )
 
 func (ads *AdsStreamClient) handleEds(resp *envoy_service_discovery_v3.DiscoveryResponse) error {
-	//GOD:
-	//	for {
-	//
-	//		select {
-	//		default:
-	//			if Count == 0 || Count == 4 {
-	//				break GOD
-	//			}
-	//
-	//		}
-	//	}
-	//	Count++
-	//go func() {
-	//	fmt.Println(time.Now(), " \n=========\n", resp)
-	//}()
 
 	endpoints := HandleEndpointResponse(resp)
 	if log.DefaultLogger.GetLogLevel() >= log.INFO {

@@ -2,6 +2,7 @@
 	"servers":[
 		{
 			"default_log_path":"stdout",
+			"log_path": "./logs/ingress.log",
 			"routers":[
 				{
 					"router_config_name":"server_router",

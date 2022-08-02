@@ -200,7 +200,7 @@ func (conn *streamConnection) Write(p []byte) (n int, err error) {
 	// TODO avoid copy
 	buf := buffer.GetIoBuffer(n)
 	buf.Write(p)
-
+	//log.DefaultLogger.Infof("%+v ", string(p))
 	err = conn.conn.Write(buf)
 	return
 }

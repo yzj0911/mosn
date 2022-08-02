@@ -1,4 +1,11 @@
 {
+  "servers": [
+    {
+      "mosn_server_name": "mosn",
+      "default_log_path": "/Users/yzj/GolandProjects/mosn/cmd/mosn/main/ingress.log",
+      "default_log_level": "info"
+    }
+  ],
   "static_resources": {
     "clusters": [
       {
